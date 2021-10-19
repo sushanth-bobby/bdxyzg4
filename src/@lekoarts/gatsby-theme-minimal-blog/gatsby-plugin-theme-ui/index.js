@@ -17,7 +17,8 @@ const theme = merge(tailwind, {
       light:{
         background: `#bddccc`, /* Background */        
         primary: `#7400b8`,    /* Alink posted color */
-        secondary: `#ee4035`   /* Alink top menu color */
+        secondary: `#ee4035`,   /* Alink top menu color */
+        divide: tailwind.colors.purple[6], /* HR color */
       },      
       dark: {
         background: `#1e172c`,
@@ -26,8 +27,8 @@ const theme = merge(tailwind, {
         heading: `#ff0080`,
         toggleIcon: `#fdf498`,  
         text: tailwind.colors.gray[4],        
-        divide: tailwind.colors.gray[8],
-        muted: tailwind.colors.gray[8],
+        divide: tailwind.colors.gray[6],
+        muted: tailwind.colors.gray[8], /* HR color */
       },
     },
   },
@@ -137,6 +138,8 @@ const theme = merge(tailwind, {
     },
     hr: {
       mx: 0,
+      height: `2px`, /* initially it was 1px. Increased it to 2px */
+      backgroundColor: 'divide', /* to reflect the color of the theme */
     },
   },
   layout: {

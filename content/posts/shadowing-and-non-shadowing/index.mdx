@@ -1,5 +1,5 @@
 ---
-title: GatsbyJS - Shadowing and Non-shadowing
+title: GatsbyJS - Shadowing
 date: 2021-07-16
 description: To make your site stand out, you have to make some custom changes 
 tags:
@@ -56,7 +56,7 @@ src
 └───pages
 ```
 
-* From **src\@lekoarts\gatsby-theme-minimal-blog**, copy folders `components, hooks, styles, texts` and `utils` from `gatsby-starter-minimal-blog\node_modules\@lekoarts\gatsby-theme-minimal-blog\src`
+* From **src\@lekoarts\gatsby-theme-minimal-blog**, copy folders `components, hooks, styles, texts, gatsby-plugin-theme-ui` and `utils` from `gatsby-starter-minimal-blog\node_modules\@lekoarts\gatsby-theme-minimal-blog\src`
 * **src\pages** should contain two files seo.js and 404.js otherwise there will be an error. 
 
 Here are the first set of updates, 
@@ -154,7 +154,7 @@ Here are the first set of updates,
   To   : <Heading as="h2" variant="styles.h2"> {post.title} </Heading>
   ```
 
-4. About_me, T.I.L, music, iRevere title sizes
+4. About_me, T.I.L, music, iRevere title sizes     
 
   Path : `gatsby-starter-minimal-blog\src\@lekoarts\gatsby-theme-minimal-blog\components\page.tsx`
   ```ts
@@ -162,7 +162,53 @@ Here are the first set of updates,
   To   : <Heading as="h2" variant="styles.h2"> {page.title} </Heading>
   ```
 
+5. Themes     
+
+  Path : `gatsby-starter-minimal-blog\src\@lekoarts\gatsby-theme-minimal-blog\gatsby-plugin-theme-ui\index.js`
+
+  Under `colors:{ /** Add this ** / }`
+  ```ts 
+    modes: {
+      light:{
+        background: `#bddccc`, /* Background */        
+        primary: `#7400b8`,    /* Alink posted color */
+        secondary: `#ee4035`,   /* Alink top menu color */
+        divide: tailwind.colors.purple[6], /* HR color */
+      },      
+      dark: {
+        background: `#1e172c`,
+        primary: `#fad141`,
+        secondary: `#2ab7ca`,
+        heading: `#ff0080`,
+        toggleIcon: `#fdf498`,  
+        text: tailwind.colors.gray[4],        
+        divide: tailwind.colors.gray[6],
+        muted: tailwind.colors.gray[8], /* HR color */
+      },  
+  ```
+
+6. HR(horizontal rule) or dividers     
+
+  Path : `gatsby-starter-minimal-blog\src\@lekoarts\gatsby-theme-minimal-blog\gatsby-plugin-theme-ui\index.js`
+
+  Under `styles`
+  ```ts
+  From : 
+    hr: {
+      mx: 0,
+    },
+
+  To   : 
+    hr: {
+      mx: 0,
+      height: `2px`, /* initially it was 1px. Increased it to 2px */
+      backgroundColor: 'divide', /* to reflect the color of the theme */
+    },  
+  ```
+
 All the above changes will get the primary look get better. Atleast to me. 
+
+* * * 
 
 ### # Next Steps
 * [Migrating from GatsbyJS 3 to GatsbyJS 4](../111-migrating-from-gatsbyjs3-to-gatsbyjs4)

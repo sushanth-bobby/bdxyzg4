@@ -116,9 +116,9 @@ Below is the output when you run it.
 
 Things to notice in the above program, 
 
-1. Service Account Specification, there ar two ways
-  * First method is as mentioned in the program pointing to the secret json file 
-  * Second is updating the environment variable GOOGLE_APPLICATION_CREDENTIALS ( more details on this after the below program )
+1. Service Account Specification, there are two ways
+    * First method is as mentioned in the program pointing to the secret json file 
+    * Second is updating the environment variable GOOGLE_APPLICATION_CREDENTIALS ( more details on this after the below program )
 
 2. `.set()` will replace the data in that node path, if data already exists. So, you need to be careful with that. 
 
@@ -143,22 +143,23 @@ users_ref.child('gracehop').set({
 
 #### Application Default Credentials (ADC)
 
-    Google Cloud Client Libraries use a library called Application Default Credentials (ADC) to automatically find your service account credentials. ADC looks for service account credentials in the following order:
+  Google Cloud Client Libraries use a library called Application Default Credentials (ADC) to automatically find your service account credentials. ADC looks for service account credentials in the following order:
 
-    If the environment variable GOOGLE_APPLICATION_CREDENTIALS is set, ADC uses the service account key or configuration file that the variable points to.
+  If the environment variable GOOGLE_APPLICATION_CREDENTIALS is set, ADC uses the service account key or configuration file that the variable points to.
 
-    If the environment variable GOOGLE_APPLICATION_CREDENTIALS isn't set, ADC uses the service account that is attached to the resource that is running your code.
+  If the environment variable GOOGLE_APPLICATION_CREDENTIALS isn't set, ADC uses the service account that is attached to the resource that is running your code.
 
-    This service account might be a default service account provided by Compute Engine, Google Kubernetes Engine, App Engine, Cloud Run, or Cloud Functions. It might also be a user-managed service account that you created.
+  This service account might be a default service account provided by Compute Engine, Google Kubernetes Engine, App Engine, Cloud Run, or Cloud Functions. It might also be a user-managed service account that you created.
 
-    Using the above technique, ADC can automatically find your credentials. Its recommended using ADC because it requires less code and your code is portable in different environments.
+  Using the above technique, ADC can automatically find your credentials. Its recommended using ADC because it requires less code and your code is portable in different environments.
 
 Basically run the below command to set the environment variable
 ```sh
 set GOOGLE_APPLICATION_CREDENTIALS=D:\BigData\13. Firebase\FB-Authentication3\functions\secrets\api-project-testing.json
 ```
 
-Any GCP Client will look for `GOOGLE_APPLICATION_CREDENTIALS`, if its set it will use it and no need any code related to pointing to the secret json file. 
+Any GCP Client will look for `GOOGLE_APPLICATION_CREDENTIALS`, if its set it will use it and no need any code related to pointing to the secret json file. See below firebase admin initialization there is no mention of `cred` which is mentioned in above program. Also take at look below querying example it uses ADC. 
+
 ```
 firebase_admin.initialize_app(options={
     'databaseURL': "https://api-project-testing.firebaseio.com"
