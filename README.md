@@ -43,7 +43,7 @@ In this site, i post about my interests and stuff i do.
 4. Save your progress
     ```
     # After all changes. Commit in the monthly branch. When needed to merge do the following
-    git commit -m "September 2021 : Update 1 - From New Gatsby, Added 9 new posts and few updated"
+    git commit -m "October 2021 : Update 1 - Upgraded Gatsby and the starter theme + 1 New Post"
     ```
 
 5. DO REMEMBER : Always stay in the monthly branch
@@ -62,7 +62,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge October2021 -m "September 2021 : All final updates"
+    git merge October2021 -m "October 2021 : Update 1 - Upgraded Gatsby and the starter theme + 1 New Post"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -81,13 +81,13 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "September 2021 : Final Update"
+    firebase deploy -m "October 2021 : Final Update"
     ```
 
 5. Push the changes to GitHub
     ```
     git add . 
-    git commit -m "September 2021 : Final Update"
+    git commit -m "October 2021 : Update 1"
     git push 
     
     # DONT DO THIS AFTER GIT PUSH : When some files are forgotten to add
