@@ -21,6 +21,8 @@ In this site, i post about my interests and stuff i do.
 
 ## 🥊 Development & Testing
 
+### Development procedures
+
 1. Create a monthly git branch and start making changes 
     ```
     # Every month create a new branch October2021(First Character Uppercase followed by year)
@@ -43,7 +45,7 @@ In this site, i post about my interests and stuff i do.
 4. Save your progress
     ```
     # After all changes. Commit in the monthly branch. When needed to merge do the following
-    git commit -m "October 2021 : Update 1 - Upgraded Gatsby and the starter theme + 1 New Post"
+    git commit -m "October/November 2021 and: Update 1 - Added few posts"
     ```
 
 5. DO REMEMBER : Always stay in the monthly branch
@@ -51,8 +53,13 @@ In this site, i post about my interests and stuff i do.
     git checkout October2021
     ```
 
-#### Emojis
-🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+### Posts usage
+
+* Emojis    
+  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+
+* Created on : Consider post date as 'Last updated' and use below 'created on' to mention when the actual post was created on. 
+  - Sample : **Created on**: 2020-10-06    
 
 
 ## 🚀 Deployment
@@ -62,7 +69,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge October2021 -m "October 2021 : Update 1 - Upgraded Gatsby and the starter theme + 1 New Post"
+    git merge October2021 -m "OctoberNovember 2021 : Update 1 - Added few posts"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -81,7 +88,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "October 2021 : Final Update"
+    firebase deploy -m "October/November 2021 : Update 1"
     ```
 
 5. Push the changes to GitHub
