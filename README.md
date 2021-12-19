@@ -21,6 +21,8 @@ In this site, i post about my interests and stuff i do.
 
 ## 🥊 Development & Testing
 
+### Development procedures
+
 1. Create a monthly git branch and start making changes 
     ```
     # Every month create a new branch October2021(First Character Uppercase followed by year)
@@ -51,8 +53,13 @@ In this site, i post about my interests and stuff i do.
     git checkout October2021
     ```
 
-#### Emojis
-🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+### Posts usage
+
+* Emojis    
+  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+
+* Created on : Consider post date as 'Last updated' and use below 'created on' to mention when the actual post was created on. 
+  - Sample : **Created on**: 2020-10-06    
 
 
 ## 🚀 Deployment
