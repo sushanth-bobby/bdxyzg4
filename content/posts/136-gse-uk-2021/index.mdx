@@ -6,6 +6,8 @@ tags: ['db2-notes', 'mainframe']
 slug: "/136-gse-uk-2021"
 ---
 
+![GSE UK 2021](./gse.png)
+
 1. [2AD - The joy of joins](#p01)
 1. [6AD - Mainframe Hardware 101](#p02)
 1. [2AE - Intro to zOS](#p03)
@@ -17,6 +19,16 @@ slug: "/136-gse-uk-2021"
 1. [2AR - ISPF Master Class - Edit from A to ZLAST](#p09)
 1. [6AT - zOS Terminology](#p10)
 1. [4AU - Db2 zOS housekeeping best practices](#p11)
+1. [6AU - Mainframe Performance Tuning](#p12)
+1. [5AV - IBM zOS on z15 Hardware](#p13)
+1. [6AV - How long is too long Multi-period Service Classes](#p14)
+1. [2AY - Db2 Clients, Connect, gateways - what do I really need](#p15)
+1. [2BB - 2021 Edition - Db2 for zOS Development - SWAT Tales](#p16)
+1. [6BB - zOS program fetch, how programs are found for execution](#p17)
+1. [5BC - Protecting data through encryption of Coupling Facility Structures](#p18)
+1. [7BE - Automating DB2 Schema Change - A Practical Guide](#p19)
+1. [4BI - Db2 for z/OS Continous Delivery - Five Years Later](#p20)
+1. [4BJ - Parallel Sysplex Basics](#p21)
 
 * * * 
 
@@ -259,10 +271,10 @@ ALTER TABLE emp ACTIVATE COLUMN ACCESS CONTROL;
 An address space size is limited to the amount of memory that can be addressed. 
 
 * In 1977, an address space was limited to 16MB
-* In 1981, an address space size was increated to 2GB. This is when concept of **The Line** was introduced. 
+* In 1981, an address space size was increased to 2GB. This is when concept of **The Line** was introduced. 
   - Programs not changed to support 31-bit addressing had to run and could only access data that was **"Below the line"**
   - Programs that were changed to support 31-bit addressing could run and could also access data that was **"Above the line"**.
-* In 2000, an address space was increated to 64-bit or 16EB addressing. During then introduced **"The Bar"**. 
+* In 2000, an address space was increased to 64-bit or 16EB addressing. During then introduced **"The Bar"**. 
 
 ![Program Addressability](./program-addressability.png)
 
@@ -880,7 +892,518 @@ New REBIND Behaviour from Db2 12 FL505
 
 ![Identifying Stale Statistics](./4au-stale-stats.png)
 
+* * * 
+
+<a id="p12"></a>
+
+### 6AU - Mainframe Performance Tuning
+
+**Speaker:** Mary Solomon    
+
+#### What is Performance Tuning ? 
+
+Most systems will respond to increased load with some degree of decreasing performance. A systems ability to accept higher load is called scalability and modifying a system to handle a higher load is synonmous to performance tuning. 
+
+For effective performance management, you need to go on to measure resource requiremnet at the workload level. Analyzing your workload helps you to understand the behaviour of your system and how workloads interact with each other. 
+
+#### Understand your system
+* Which workloads are placing the greatest burden on the system resources ? 
+  - Measure your online and batch CPU usage pattern 
+* How do performance baselines compare before and after optimization efforts ? 
+  - Measure CPU usage at System level, LPAR level and workload level
+  - SMF 70, 72 and 30
+
+#### WLM Workload distribution
+* Dont put all workloads in single bucket
+* Each service class is comprised of one or more service class periods. Its at the period level that work is assigned a goal, an importance level and optionally, a period duration of service. 
+* Distribute the workload
+* Try to identify major contributor, review your WLM definition, divide your workload based on your business SLA. If some of batch workloads can run on evening, move it to evening. 
+
+#### Upgrade Compiler
+* Using COBOL 6.3 reduces, on average, CPU usage 58% over applications complied with COBOL v4.2 on z15
+
+#### Review program logic
+
+#### Capping
+Reason you would consider capping techniques,   
+
+* Technical Motivation
+  - Protect/Isolate LPARs against other LPARs
+  - Protect workloads(set of service classes) against other workloads
+* Finanical Motivation
+  - Limit software cost
+    + Guaranteed capacity limit for one or more LPARs
+    + 4h rolling average consumption
+
+#### Memory
+* Central Storage
+  - Its good to know the allocated central storage size. Used in Hipersorting, dataspace sorting and memory object sorting. 
+
+* AFQ(Available Frames Queue)
+  - When the supply of REAL frames becomes low, z/OS uses page stealing to replenish it based on an LRU mechainsm
+
+3. Paging
+  - High paging rate always indicating the memory constraint
+  - DFSORT bases it use of these very efficient sorting methods on the amount of central storage it can use without causing excessive paging on the system. 
+
+#### Application Performance
+##### CICS
+* SMF 30 - Shows CICS region CPU usage data
+* SMF 110
+  - CICS transaction performance data
+  - Avoid high no. of transaction abend
+  - Measure QR and L8 CPU usage
+  - Measure transaction volume
+  - Looping Transaction
+  - Monitor CICS transaction CPU usage and transaction volume
+  - Transaction Response time
+
+Note 1 : CICS transactions programs mainly run on the QR(quasi reentrant TCB). This is the CICS main TCB. 
+Note 2 : Db2 calls within the transactions normally use L8 TCB. 
+
+##### Db2 
+* SMF 30 - DIST address space using
+* SMF 101, 102 - DDF user and transactions info
+* IFCID 196 Timeout report
+* IFCID 172 Deadlock report
+
+#### zIIP
+* zIIP is initially designed for Java and now Db2(SP) and Cloud workloads(REST)
+* z/os Container Extensions - 90% is zIIP eligible
+* IBM z/OS Connect EE is a Java based product so its 99% zIIP eligible
+* Data Virtualization Manager for z/OS - Allows to R/W data of relational and non-relation data without having to move, replicate or transform data. 
+* zIIPs can be used to process network encryption and decryption
+* XML Processing
+* IBM Watson ML uses zIPP
+* Provides Capacity for System Recovery Boost
+* z/OSMF is 95% zIIP eligible
+
+Question i had mind,     
+* How to see zIIP Eligible MIPS and zIIP MIPS usage ?
+
+* * * 
+
+<a id="p13"></a>
+
+### 5AV - IBM zOS on z15 Hardware
+
+**Speaker**: Steve Warren and Marna Walle    
+**Source**: [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-5AV_IBMzOSonz15Hardware.pdf)
+
+![IBM z15 Functions and Features](./5av-z15-features.png)
+
+##### Fix Categories
+* Required
+* Exploitation
+* Recommended
+
+![Parallel Sysplex Coupling Connectivity](./5av-z15-coupling-connectivity.png)
+
+* * * 
+
+<a id="p14"></a>
+
+### 6AV - How long is too long Multi-period Service Classes
+
+**Speaker**: John Baker    
+**Source**: [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-6AV_HowlongistoolongMultiperiodServiceClasses.pdf)
+
+##### Measuring Workloads
+* In z/OS, System Resources Manager(SRM) tracks each workloads consumption of services. 
+* SMF 30 and 72 provide insight into service consumption by each category, 
+  - TCB(Task Control Block) aka CPU
+  - SRB(Service Request Block) also CPU
+  - I/O derived from EXCP counts
+  - MSO(Main Storage Occupancy) executing within central storage
+
+##### SRM Constants 
+
+* SRM constants allow service to be normalized across various capacities of IBM processors
+* Like the LSPR(Larage Systems Performance Reference) aka "*MIPS tables*", SRM constants provide a relative comparison of hardware capacity
+
+Google "Processor version codes and SRM constants" to get below table
+
+![Processor version codes and SRM constants](./6av-processor-version-codes.png)
+
+In the above pic, if you notice, the SU/SEC for 8561-401 and 8561-405 there are some differences thats due to "*MP Effect*", multi-processing overhead associated with increasing the number of cores in a given machine. 
+
+Example a job that consumers 1 million SU in z15 will take around 10 CPU seconds. 
+If run on a 8561-401 that only produces 13937.2822(SU/SEC) will take 70 CPU seconds. 
+
+##### Multi-period Service Classes
+
+* Workloads are grouped into Service Classes
+* WLM doesn't manage Service classes, it manages Service Class periods. Each service class has atleast one period and when more than one period is defined, each period is like a separate service class with its own goal. 
+* Each period has its own goal and importance
+* Finally period must specify a duration
+* Duration is total weighted service units
+* When a workload exceeds the duration of the service class period, the workload 'moves' to the next period. Do understand, goals reduce in successive periods. 
+* Well behaved transactions(batch or online) with lower CPU consumption, receive preferential treatment
+
+##### Example
+
+Hardware (z14 3906-710) - Each core is rated at 75,117 SU/SEC
+
+* Period 1
+  - 90% complete in .05 seconds (50 milliseconds)
+  - Importance 2
+  - Duration 1000 (SU, Take a look coeffient, if its 10, it means you need to consume 1000/10=100 raw service unit -- Total weighted)
+    + 1000su / 75117 = 0.01(10ms). We can see hardware can produce 1000 service units in 10ms, our goal is only 50ms. This gives basic assurance hardware can handle meet the goal. 
+    + 75117 * 0.05 = 3756 SU
+
+* Period 2
+  - Velocity 40
+  - Imporantance 3
+  - Duration 2000000 (2M SU)
+    + 2,000,000 / 75117 = 26 seconds
+    + Transaction can accumulate approximately 26 seconds of CPU time before moving to the next period. 
+
+* Period 3
+  - Discretionary 
+
+* * * 
+
+<a id="p15"></a>
+
+### 2AY - Db2 Clients, Connect, gateways - what do I really need
+
+**Speaker:** Christoph Theisen    
+**Source:** [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-2ay_Db2ClientsConnectgatewayswhatdoIreallyneed.pdf)
+
+##### What is Db2 Connect
+Its a synonym for Db2 Clients or every type of remote connectivity. 
+
+IBM is asking to move away from Db2 Connect Server and use direct connectivity. 
+
+##### Db2 Connect License
+
+![Db2 Connect License Options](./2ay-db2_connect_license.png)
+
+There are 3 types of license
+* Enterprise Edition -- Medium size, used for named users or group of named users. 
+* Application Server Edition -- Its mainly used in unknown and many number of end users. WebServer is running Db2 Client application connecting to mainframe. Price depends on the capacity of Application Server. 
+* Unlimited Edition(for System z) -- Most expensive one
+
+**License**     
+* **Required** for Db2 Data Server Clients, Data Server Drivers, Db2 Connect Server to Db2 for z/OS
+* **Required** if connect comes from Db2 LUW to Db2 z/OS
+* *Not Required* for Db2 z/OS to Db2 z/OS
+* *Not Required* for access Db2 z/OS via REST 
+* IBM Data Studio uses restricted licenses(there is license in the installation path which comes with the product). 
+
+##### Db2 Data Server Clients and Drivers
+
+![Db2 Client Connectivity products](./2ay-db2_drives.png)
+
+* Data Server Client : This is the biggest footprint. This includes Replication Center, Precompiler and BIND.
+* DS Driver for ODBC/CLI : This helps you to catalog database connections to remote databases
+* DS Driver for JDBC/SQLJ : This is the smallest footprint
+
+![Db2 Data Server Drivers](./2ay-db2_ds_clients1.png)
+
+![Db2 Data Server Drivers](./2ay-db2_ds_clients2.png)
+
+![What driver to use](./2ay-what-to-use.png)
+
+##### Db2 Connect Server aka Gateway 
+
+![Db2 Connect Server](./2ay-db2_connect_server.png)
+
+* Point of Control
+  - Ability to stop server (or) cut connections of any application that is misbehaving
+* Reduce number connections
+  - Used for connection concentration
+* Sysplex workload balancing
+  - Has ability to distribute workload
+
+Is Db2 Connect Server required ? Check the slides from 18-21
+
+* * * 
+
+<a id="p16"></a>
+
+### 2BB - 2021 Edition - Db2 for zOS Development - SWAT Tales
+
+**Speaker:** Anthony Ciabattoni
+
+##### Recovery Asset Infrastructure
+* Wrapping active log datases too freqently ( < 6hrs )
+* Writing archive logs and ICs directly to tape or VTS
+  - This will result in serialization for multi-object recovery operations
+  - Even so VTS is backed by DASD but it is still recognized as tape device by the operating system
+  - Additional storage pools are not pre-allocated to copy VTS Objects to DASD prior to recovery. 
+* Retention period for recovery assets are not consistent. e.g:archive logs, imagecopies
+* LOG NO tablespaces have two imagecopies
+
+**...**
+
+* * * 
+
+<a id="p17"></a>
+
+### 6BB - zOS program fetch, how programs are found for execution
+
+**Speaker:** Keith Sisson
+
+##### Executing a program
+1. Get the program that you want to run
+2. Load the program into your address space
+3. Execute the program
+
+##### Address space
+
+* Address space is actually a virtual address space. 
+* In a 64-bit address space, 16Exabytes is actually not there but what z/OS does is in the background, it swaps code in-and-out seamlessly behind the scene. To give you an impression, the entire code is loaded. 
+
+Just imagine the bottom has 64 zeros and top has 64 ones.
+![Address space](./6bb-address_space.png)
+
+##### Fetch Order
+1. Job Pack Area (JPA)
+  * `EXEC PGM=EXCEL`. If the copy of the program is already loaded in the address space it will be used otherwise it will search for new copy. 
+
+2. TASKLIB
+  * A Program can allocate one or more datasets to a TASKLIB concatenation with an assembler macro by specifying the TASKLIB option. Modules can then be loaded from a DD concatenation
+ 
+3. STEPLIB or JOBLIB
+  * These are specific DD names that can be used to allocate data sets to be searched ahead of the default system search order for the programs. 
+  * When STEPLIB and JOBLIB both are mentioned in a JCL, STEPLIB takes precedence over JOBLIB and load is searched there. 
+
+4. LPA (Link Pack Area)
+  * These are loaded in addres space during IPL time and they are persistent. 
+
+5. Libraries in the LINKLIST
+  * If a module is not found in the other above locations, the LINKLIST is then searched. The LINKLIST is a 'list' of load module libraries that reside on disk, that the system is to search. 
+
+More on catalogs...
+
+* * * 
+
+<a id="p18"></a>
+
+### 5BC - Protecting data through encryption of Coupling Facility Structures
+
+**Speaker:** Steve Warren
+**Source:** [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-5bc_ProtectingdatathroughencryptionofCouplingFacilityStructures.pdf)
+
+With z14 and z15, we can encrypt all of the application data without making any application changes and no impact to SLAs
+
+![Pervasive Encryption](./5bc-pervasive_encryption.png)
+
+##### Steps
+1. Define Policy -- Edit CFRM policy input, specifying ENCRYPT(YES)
+2. Create Keys -- Run policy utility and store keys in CFRM CDS
+3. Activate Policy -- Start the new policy by command `SETXCF START`
+4. Encrypt Data -- Rebuild structures by `SETXCF START,REALLOCATE`
+
+More details on above steps....
+
+* * * 
+
+<a id="p19"></a>
+
+### 7BE - Automating DB2 Schema Change - A Practical Guide
+
+**Speaker:** Julian Stuhler
+**Source:** [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-7BE_AutomatingDB2SchemaChangeAPracticalGuide.pdf)
+
+Whole presentation was very precise, if i had to take notes, it would be entire presentation. :D
+
+* * * 
+
+<a id="p20"></a>
+
+### 4BI - Db2 for z/OS Continous Delivery - Five Years Later
+
+**Speaker:** Chris Crone    
+
+**Saving best for last**     
+
+
+#### Four new levels
+
+* Maintenance level(ML)
+  - Also known as code level
+  - Contains fixes & inactive new functions
+
+* Catalog level(CL)
+  - Db2 Catalog changes that are needed for FLs
+
+* Function level(FL)
+  - Introduces new Db2 features and functionality
+
+* APPLCOMPAT level(AC)
+  - Determines SQL level of applications
+  - Activates new SQL syntax
+  - Freezes SQL syntax even if FL is later moved back to earlier level
+
+Initial assumptions were New MLs & FLs expected every 3-4 months
+
+There is a new catalog table `sysibm.syslevelupdates` to keep track of FL changes. 
+
+#### Db2 Continous Delivery
+
+##### APPLCOMPAT(V12R1M501) and above
+**Packages for IBM Data Server Drivers (aka – the nullid packages)**
+
+In Db2 12, APAR PH08482 simplifies the process of activating new function levels without impacting existing JDBC, CLI, and .net applications, and it possibly reduces the coordination effort required between Db2 administrators and application programmers, for activating new application compatibility (APPLCOMPAT) levels. With this APAR applied, Db2 12 assumes that the IBM Data Server Drivers at the following levels or higher fully support all new SQL capabilities:
+
+* IBM Data Server Driver for JDBC and SQLJ Versions 3.72 and 4.22, or later
+* IBM Data Server Driver for ODBC and CLI Version 11.1 Modification 2 Fix Pack 1 or later
+
+Specifically, this APAR makes the clientApplcompat property optional for applications that use the IBM Data Server Drivers (different spellings and capitalization are used in various drivers; however, for readability this post uses only the correct spelling for Java drivers.) Previously, Db2 12 required such applications to specify the clientApplcompat property if the 'NULLID' packages at the server were bound with APPLCOMPAT(V12R1M501) or higher. Otherwise, the connection failed with SQLCODE -30025, possibly with message DSNL076I.
+
+**LISTAGG**
+
+##### APPLCOMPAT(V12R1M502)
+* Explicit Casting to GRAPHIC/VARGRAPHIC
+* Database Controlled Pervasive Encryption
+
+##### FL503
+* Db2 AI for z/OS Support,
+  - -START ML (Db2)
+  - -STOP ML (Db2)
+  - -DISPLAY ML (Db2)
+
+* Temporal Auditing
+* REPLICATION_OVERRIDE
+
+##### FL504
+* Z14 (and above) Huffman Compression
+* Prevent Creation of Deprecated Objects. Packages bound with APPLCOMPAT(V12R1M504) cannot CREATE
+  - SYNONYMS
+  - SEGMENTED (non-UTS) tablespaces
+  - Partitioned (non-UTS) tablespaces
+  - Hash-Organized Tables
+
+This only affects the creation of new objects from packages bound
+APPLCOMPAT(V12R1M504) and above.
+  - Use – “SET CURRENT APPLICATION COMPATIBILITY = ‘V12R1M503’” to allow creation of these objects,
+if necessary, on application/tooling bound at higher levels
+  - Can be set in “Profile Tables”
+
+* IDAA Built-in Functions(BIF) Passthrough
+* New Syntax Alternative
+
+##### FL505/APPLCOMPAT(V12R1M505)
+
+* FL505
+  - Improved Hybrid Transactional Analytical Processing
+    + Ability to have true ISO(CS) CURRENT DATA(NO) query processing on IDAA
+  - Rebind Phase-in for packages being used for execution
+  - RUNSTATS automatic page sampling
+  - Incompatible change if STATPGSAMP=DEFAULT (with activation of FL – essentially STATPGSAMP=YES)
+
+* APPLCOMPAT(V12R1M505)
+  - Index support for DECFLOAT
+  - System-period temporal tables and archive-enabled tables can be referenced in WHEN clauses of both basic and advanced triggers
+
+* Functions ENCRYPT_DATAKEY, DECRYPT_DATAKEY
+
+##### FL506
+* DROP Behavior is controlled by APPLCOMPAT(V12R1M506). Consistent support for dropping implicitly and explicitly created tablespaces
+  - If you drop a base table that resides in an explicitly created universal table space, Db2 implicitly drops the table space along with the table instead of returning an error in SQLCODE -669.
+  - If you drop a system-period temporal table or an archive- enabled table, Db2 also drops the associated history table or archive table. If the history table or archive table resides in
+an explicitly created universal table space, Db2 implicitly drops the table space along with the table instead of returning an error in SQLCODE -669.
+  - If you drop an auxiliary table that resides in an explicitly created LOB table space, Db2 implicitly drops the table space along with the table. Previously, the LOB table space remained as an empty table space. An auxiliary table is dropped when you take one of the following actions:
+    + Issue the DROP TABLE statement on the auxiliary
+table
+    + Drop the associated base table
+    + Drop an associated LOB column
+    + Remove an associated trailing empty partition when
+running the REORG utility on a partition-by-growth table space
+
+##### FL507
+* Deletion of old statistics when using profiles
+  - When you run the RUNSTATS, REORG, or LOAD with the USE PROFILE option. 
+    + Db2 collects only those statistics that are included in the specified profile. Beginning in function level 507, Db2 now also deletes existing statistics that are not part of the profile. All frequency, key cardinality, and histogram statistics that are not included in the profile are deleted from the catalog for the target object. This new behavior provides a way for you to remove stale distribution statistics without impacting concurrently running dynamic SQL.
+
+* NUMLKUS and NUMLKTS Global Variables
+
+* IDAA BIF Passthrough
+
+* CREATE or REPLACE for stored procedures
+
+##### FL08 
+* FTB Support for Non-Unique Indexes
+* Multi-Table Segmented to PBG
+
+##### FL09
+* Tamper Proof Audit Policies
+* High Availability Accelerator Tables
+* Huffman Compression at Object Level
+* UPDATE and DELETE for Temporal RI
+
+##### FL10
+Activation of FL 510 activates all previous FLs and prepares the system for migration to Db2 Apollo
+
+* * * 
+
+<a id="p21"></a>
+
+### 4BJ - Parallel Sysplex Basics
+
+**Speaker:** Steve Warren
+**Source:** [Slides](./https://storage.googleapis.com/bobbydreamer-com-technicals/136-gse-uk-2021/GSE2021-4BJ_ParallelSysplexBasics.pdf)
+
+##### What is Sysplex ? 
+A group of coupled yet distinct clustered instances of z/OS images that cooperate to provide a virtual single z/OS instance view to applications with the goal for high availability and capacity by providing: 
+* Messaging between the various images in the sysplex
+* Data sharing between all the images.
+
+![Shared data model](./4bj_parallel_sysplex_shared_data_model.png)
+
+* Coupling Facility is intermediary between servers and data
+* Server can make one simple call to CF to get serialization to make updates. 
+
+![Sysplex Components](./4bj_sysplex_components.png)
+Sysplex is two or more systems(limited to 32 systems) working in a cluster and these images could be in same CPC or different box. 
+* XCF Manages communication between two or more systems that communication goes over something called Signaling Paths. 
+* XCF uses couple data sets(CDS) to manage configuration and state information related to sysplex. 
+* XES is another component of the operating system that communicates with the common storage of the sysplex, coupling facility.
+* Coupling facility is another operating system(CFCC, coupling facility control code) running in another LPAR in a CPC. Using XES, application are allowed to write to these common shared storage. 
+
+There are two types of Coupling Facility
+* **CF** : External Coupling Facility or Standalone Coupling Facility, what this means is, that particular CPC, mainframe box only contains CF image or images. Expensive but good technique. 
+* **ICF** : Internal Coupling Facility, here CF is running in a LPAR in a CPC and there are also other LPARs running other operating systems. 
+
+##### Node Management
+* Sympathy sickness ( system becomes unresponsive )
+* Detecting unresponsive system 
+  - Status information is held in CDS
+  - Every few seconds each system is going read Time of Day(TOD) for each peer system.  If TOD, Signaling paths, status time of day exceed Failure detection interval(FDI) then conclude subject system is unresponsive
+* Sysplex partitioning is the act of removing a particular z/OS image out of the sysplex. 
+  - Isolation techniques
+
+##### More on CDS ( Primary and Alternate ) 
+
+##### More on XCF
+
+##### More on XCF Signaling Paths
+
+##### More on Coupling Facility (List, Lock and Cache Structures)
+
+##### CF Structure Rebuild
+
+Rebuild is the process by which the sysplex allocates a new instance of a given CF structure, populates that structure with data, and proceeds to use the new structure instancce. 
+
+![CF Rebuild](./4bj_cf_rebuild.png)
+
+There are two types of rebuild,
+1. Simplex - Create and use new instance of structure. Discard the old instance
+2. Duplex 
+  * Create secondary instance of structure
+  * Synchronize updates so both structures stay the same
+  * Can quickly failover to one or the other
+
+![CF Rebuild Types](./4bj_cf_rebuild_types.png)
+
+##### More on Common Time Reference / Server Time Protocol
+
 
 * * * 
 
 #### Thats all for now. Thanks for reading
+
+### References
+* [Db2 Notes](../105-db2-notes)
