@@ -45,7 +45,8 @@ In this site, i post about my interests and stuff i do.
 4. Save your progress
     ```
     # After all changes. Commit in the monthly branch. When needed to merge do the following
-    git commit -m "Feburary 2022 Update 1"
+    git add .
+    git commit -m "Feburary 2022 Update 2"
     ```
 
 5. DO REMEMBER : Always stay in the monthly branch
@@ -56,7 +57,7 @@ In this site, i post about my interests and stuff i do.
 ### Posts usage
 
 * Emojis    
-  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 🚀
 
 * Created on : Consider post date as 'Last updated' and use below 'created on' to mention when the actual post was created on. 
   - Sample : **Created on**: 2020-10-06    
@@ -69,7 +70,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge Feburary2022 -m "Merging Feburary 2022 : Update 1"
+    git merge Feburary2022 -m "Merging Feburary 2022 : Update 2"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -88,13 +89,13 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "Feburary 2022 : Update 1"
+    firebase deploy -m "Feburary 2022 : Update 2"
     ```
 
 5. Push the changes to GitHub
     ```
     git add . 
-    git commit -m "Feburary 2022 : Update 1"
+    git commit -m "Feburary 2022 : Update 2"
     git push 
     
     # DONT DO THIS AFTER GIT PUSH : When some files are forgotten to add
