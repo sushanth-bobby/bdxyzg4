@@ -25,9 +25,9 @@ In this site, i post about my interests and stuff i do.
 
 1. Create a monthly git branch and start making changes 
     ```
-    # Every month create a new branch April2022(First Character Uppercase followed by year)
-    Create and Checkout : git checkout -b April2022
-    Checkout            : git checkout April2022
+    # Every month create a new branch Feburary2022(First Character Uppercase followed by year)
+    Create and Checkout : git checkout -b Feburary2022
+    Checkout            : git checkout Feburary2022
     ```
 
 2. Test the site
@@ -45,24 +45,22 @@ In this site, i post about my interests and stuff i do.
 4. Save your progress
     ```
     # After all changes. Commit in the monthly branch. When needed to merge do the following
-    git commit -m "April 2022 Update 1"
+    git add .
+    git commit -m "Feburary 2022 Update 2"
     ```
 
 5. DO REMEMBER : Always stay in the monthly branch
     ```
-    git checkout April2022
+    git checkout Feburary2022
     ```
 
 ### Posts usage
 
 * Emojis    
-  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 
+  - 🡲 🡐 ⯬ ⟿  ⋙ ⋘ ⫸ ⫷ ⚡ 🌟 ❤️ ☠️ 🔥 💀 ☪ ⭐ ⁂ 🟌 ✓ ✔ ⨝ ⴵ 🚀
 
 * Created on : Consider post date as 'Last updated' and use below 'created on' to mention when the actual post was created on. 
-  - Sample : 
-  ```
-  **Created on**: 2020-10-06    
-  ```
+  - Sample : **Created on**: 2020-10-06    
 
 
 ## 🚀 Deployment
@@ -72,7 +70,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge April2022 -m "Merging April 2022 : Update 1"
+    git merge April2022 -m "Merging April 2022 : April-August Updates"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -91,13 +89,13 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "April 2022 : Update 1"
+    firebase deploy -m "April 2022 : April-August Updates"
     ```
 
 5. Push the changes to GitHub
     ```
     git add . 
-    git commit -m "April 2022 : Update 1"
+    git commit -m "April 2022 : April-August Updates"
     git push 
     
     # DONT DO THIS AFTER GIT PUSH : When some files are forgotten to add
