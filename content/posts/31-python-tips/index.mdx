@@ -1,6 +1,6 @@
 ---
 title: Python tips
-date: 2021-09-28
+date: 2022-08-06
 description: Tips to improve python programming skills
 tags:
   - python
@@ -8,16 +8,20 @@ tags:
 slug: "/31-python-tips"
 ---
 
-**Last updated** : 28/Sept/2021     
+**Last updated** : 06/Aug/2022     
 
 Events are in reverse chronological order. 
+* 2022/08/06 - [Find and delete specific keys from dict](#pt12)
+* 2022/08/06 - [Updating dataframe with another dataframe](#pt11)
+* 2022/08/02 - [Find null on specific columns](#pt14)
+* 2022/07/27 - [Convert specific column types](#pt13)
 * 2021/10/01 - [Convert dictionaries into values of variable of same name as key](#pt10)
 * 2021/09/28 - [Getting time differences for comparisons](#pt09)
 * 2021/09/27 - [To know installed python versions](#pt08)
 * 2021/09/27 - [Virtual Environment](#pt07)
 * 2020/08/08 - [Drop duplicates, but ignore nulls](#pt06)
 * 2020/07/06 - [Convert two arrays to dictionary](#pt05)
-* 2020/07/12 - [View specific row by index ](#pt04)
+* 2020/07/12 - [View specific row by index](#pt04)
 * 2020/07/20 - [Read all columns into pandas as object](#pt03)
 * 2020/06/03 - [Common pandas options](#pt02)
 * 2020/06/06 - [Display all columns of specific datatype](#pt01)
@@ -25,6 +29,67 @@ Events are in reverse chronological order.
 
 ___
 <br/>
+
+
+<a id="pt12"></a>
+
+##### Find and delete specific keys from dict
+
+Lets assume if *nc* dict has keys like `cur_7, cur_6, cur_5, cur_4, cur_3, cur_2, cur_1, cur` and we want to keep keys `cur` and delete all keys greater than 4. 
+
+```py
+nc = ['cur_7', 'cur_6', 'cur_5', 'cur_4', 'cur_3', 'cur_2', 'cur_1', 'cur']
+temp = []
+for k, v in nc.items():
+    print(k, v)
+    if(v=='cur'):
+        continue
+    num = int(v[4:])
+    print(num)
+    if(num > 4):
+        temp.append(k)
+        
+print(temp)        
+[nc.pop(k, None) for k in temp]
+print(nc)
+```
+
+<a id="pt11"></a>
+
+##### Updating dataframe with another dataframe
+
+```py
+# Column names should be same be df1 and df2 for it to be updated
+df1.set_index(['sc_code'], inplace=True)
+df1.update(df2.set_index(['sc_code']))
+df1.reset_index(inplace=True)
+```
+
+<a id="pt14"></a>
+
+##### Find null on specific columns
+
+```py
+-- Find rows which has null or NaN in any column
+df[df.isnull().any(axis=1)]
+
+
+cols = ['cur_4', 'cur_3', 'cur_2', 'cur_1', 'cur']
+-- Find null on specific columns
+df_pivot_avg = df_pivot_avg[df_pivot_avg[cols].isnull().all(axis=1)].copy()
+
+-- Find nonnull on specific columns
+df_pivot_avg = df_pivot_avg[df_pivot_avg[cols].notnull().all(axis=1)].copy()
+```
+
+<a id="pt13"></a>
+
+##### Convert specific column types
+
+```py
+s = df.select_dtypes(include='object').columns
+df[s] = df[s].astype("float")
+```
 
 <a id="pt10"></a>
 
