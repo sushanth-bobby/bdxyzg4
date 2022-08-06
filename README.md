@@ -25,9 +25,9 @@ In this site, i post about my interests and stuff i do.
 
 1. Create a monthly git branch and start making changes 
     ```
-    # Every month create a new branch Feburary2022(First Character Uppercase followed by year)
-    Create and Checkout : git checkout -b Feburary2022
-    Checkout            : git checkout Feburary2022
+    # Every month create a new branch August2022(First Character Uppercase followed by year)
+    Create and Checkout : git checkout -b August2022
+    Checkout            : git checkout August2022
     ```
 
 2. Test the site
@@ -51,7 +51,7 @@ In this site, i post about my interests and stuff i do.
 
 5. DO REMEMBER : Always stay in the monthly branch
     ```
-    git checkout Feburary2022
+    git checkout August2022
     ```
 
 ### Posts usage
@@ -70,7 +70,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge April2022 -m "Merging April 2022 : April-August Updates"
+    git merge August2022 -m "Merging August 2022 : Update 1"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -89,13 +89,13 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "April 2022 : April-August Updates"
+    firebase deploy -m "August 2022 : Update 1"
     ```
 
 5. Push the changes to GitHub
     ```
     git add . 
-    git commit -m "April 2022 : April-August Updates"
+    git commit -m "August 2022 : Update 1"
     git push 
     
     # DONT DO THIS AFTER GIT PUSH : When some files are forgotten to add
