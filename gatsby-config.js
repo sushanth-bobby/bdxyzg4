@@ -8,7 +8,7 @@ module.exports = {
     siteTitle: `bobby_dreamer`,    
     siteTitleAlt: `BobbyDreamer - Works of Sushanth Bobby Lloyds`,
     siteHeadline: `Personal website of Sushanth Bobby Lloyds`,
-    siteUrl: `https://www.bobbydreamer.com`,
+    siteUrl: `https://www.bobbydreamer.xyz`,
     siteDescription: `Sushanth Bobby Lloyds. Programming. Experiments. Wealth. Music. Bio.`,
     author: `Sushanth Bobby Lloyds`,    
   },
@@ -42,7 +42,7 @@ module.exports = {
         externalLinks: [
           {
             name: `Github`,
-            url: `https://github.com/bobbydreamer`,
+            url: `https://github.com/sushanth-bobby`,
           },
           {
             name: `LinkedIn`,

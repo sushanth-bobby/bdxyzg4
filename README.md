@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://bobbydreamer.com">
+  <a href="https://bobbydreamer.xyz">
     <img alt="LekoArts" src="./static/android-chrome-192x192.png" />
   </a>
 </p>
 <h1 align="center">
-  bobbydreamer.com
+  bobbydreamer.xyz
 </h1>
 
 Welcome to my personal site!
@@ -12,6 +12,9 @@ Welcome to my personal site!
 This site is built using 🡪 GatsbyJS using starter pack from [`@lekoarts/gatsby-theme-minimal-blog`](https://github.com/LekoArts/gatsby-themes/tree/master/themes/gatsby-theme-minimal-blog).
 
 In this site, i post about my interests and stuff i do. 
+
+*Update*
+  * As of 31/Aug/2022, no longer updating site [bobbydreamer.com](https://bobbydreamer.com). 
 
 ## ⚙️Installation
 1. Install NPM and NodeJS

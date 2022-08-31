@@ -1,10 +1,22 @@
 ---
 title: Unix Shell Learnings
-date: 2021-07-26
+date: 2022-08-07
 description: Some unix shell learnings
 tags: ['shell', 'unix']
 slug: "/114-shell-learnings"
 ---
+
+**Created on:** 2021-07-26
+
+#### Creating multiple files and folders in single command
+
+```sh
+-- Creates multiple subfolders(test1, test2) under ./lib folder
+ mkdir -p routes/{books,homepages,number,posts,user,wiki}
+
+-- Creates files package.json, index.js in the subfolders lib/test1 and lib/test2
+ touch routes/{books,homepages,number,posts,user,wiki}/{index.js,README.md}
+```
 
 #### /dev/null 2>&1
 
