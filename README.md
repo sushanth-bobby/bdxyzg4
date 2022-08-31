@@ -19,7 +19,7 @@ In this site, i post about my interests and stuff i do.
 ## ⚙️Installation
 1. Install NPM and NodeJS
 2. Install gatsby CLI `npm install -g gatsby-cli`
-3. Clone from [Git Repo](https://github.com/bobbydreamer/bdv3g4.git) : `https://github.com/bobbydreamer/bdv3g4.git`
+3. Clone from [Git Repo](https://github.com/sushanth-bobby/bdxyzg4.git) : `https://github.com/sushanth-bobby/bdxyzg4.git`
 4. Run `npm install` (once, only once) and never again. 
 
 ## 🥊 Development & Testing
@@ -28,9 +28,9 @@ In this site, i post about my interests and stuff i do.
 
 1. Create a monthly git branch and start making changes 
     ```
-    # Every month create a new branch August2022(First Character Uppercase followed by year)
-    Create and Checkout : git checkout -b August2022
-    Checkout            : git checkout August2022
+    # Every month create a new branch September2022(First Character Uppercase followed by year)
+    Create and Checkout : git checkout -b September2022
+    Checkout            : git checkout September2022
     ```
 
 2. Test the site
@@ -49,12 +49,12 @@ In this site, i post about my interests and stuff i do.
     ```
     # After all changes. Commit in the monthly branch. When needed to merge do the following
     git add .
-    git commit -m "Feburary 2022 Update 2"
+    git commit -m "September 2022 Update"
     ```
 
 5. DO REMEMBER : Always stay in the monthly branch
     ```
-    git checkout August2022
+    git checkout September2022
     ```
 
 ### Posts usage
@@ -73,7 +73,7 @@ I am using google firebase hosting for deployment and follow instructions in thi
 1. Merge the change from feature branch to master/main 
     ```
     git checkout main
-    git merge August2022 -m "Merging August 2022 : Update 1"
+    git merge September2022 -m "Merging September 2022 : Update 1"
     ```
 
 2. Prepare Gatsby Deployment 
@@ -92,13 +92,13 @@ I am using google firebase hosting for deployment and follow instructions in thi
 4. Deploy to Firebase Hosting 
     ```
     firebase serve --only hosting
-    firebase deploy -m "August 2022 : Update 1"
+    firebase deploy -m "September 2022 : Update 1"
     ```
 
 5. Push the changes to GitHub
     ```
     git add . 
-    git commit -m "August 2022 : Update 1"
+    git commit -m "September 2022 : Update 1"
     git push 
     
     # DONT DO THIS AFTER GIT PUSH : When some files are forgotten to add
