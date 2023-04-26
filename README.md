@@ -21,6 +21,7 @@ In this site, i post about my interests and stuff i do.
 2. Install gatsby CLI `npm install -g gatsby-cli`
 3. Clone from [Git Repo](https://github.com/sushanth-bobby/bdxyzg4.git) : `https://github.com/sushanth-bobby/bdxyzg4.git`
 4. Run `npm install` (once, only once) and never again. 
+5. Temporary Issue in NodeJS18 - Issue this before any Gatsby command `set NODE_OPTIONS=--openssl-legacy-provider`
 
 ## 🥊 Development & Testing
 
